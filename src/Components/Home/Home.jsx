@@ -80,6 +80,8 @@ function Home() {
 
 	}
 
+	const pokeImage = (a,b) => a ? a : b
+
 	const fetchPokemonData = async pokemonList => await Promise.all(pokemonList.results.map(async item => await getPokemonData(item.url)));
 
 	return (
@@ -92,7 +94,7 @@ function Home() {
 					<div className="cardWrapper">{pokemonList.map(list =>
 						<div className="card" style={{ backgroundColor: colors[list.types[0].type.name] }} key={list.name}>
 							<div className="pokeName">{list.name}</div>
-							<div className="pokeImage"><img className="imagePoke" src={list.sprites.other.dream_world.front_default}></img></div>
+							<div className="pokeImage"><img className="imagePoke" src={pokeImage(list.sprites.other.dream_world.front_default,list.sprites.other["official-artwork"].front_default)}></img></div>
 							<div className="pokeAbilities">Abilities{list.abilities.map(abilities => <span>{abilities.ability.name}</span>)}</div>
 							<div className="pokeTypes">Type{list.types.map(types => <span>{types.type.name}</span>)}</div>
 						</div>
