@@ -1,0 +1,87 @@
+.cardWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    .card{
+        border: 3px solid #000;
+        max-width: 350px;
+        min-width: 350px;
+        min-height: 550px;
+        margin: 10px;
+        border-radius: 10px;
+    }
+    .pokeImage {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 55%;
+        margin: 0 auto;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.8);
+    }
+    .pokeName {
+        font-weight: bold;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        height: 75px;
+        text-transform: capitalize;
+    }
+    .imagePoke {
+        max-width: 200px;
+        min-height: 200px;
+        max-height: 200px;
+    }
+    .pokeAbilities,.pokeTypes {
+        margin-left: 10px;
+    }
+}
+.contentWrapper {
+    background: #222f35;
+    min-height: calc(100vh - 50px);
+}
+.pokeFilters{
+    display: flex;
+    color: white;
+    padding-top: 10px;
+    .pokeNameSearch {
+        margin-left: 60px;
+        .pokeNameSearchBar{
+            border-radius: 10px;
+            width: 150px;
+        }
+    }
+}
+ul {
+    display: flex;
+    justify-content: center;
+}
+  
+li {
+    display: flex;
+    background: white;
+    border: 1px solid #6fd0ea;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    
+    margin: 10px;
+    border-radius: 5px;
+}
+.pagination__link--active{
+    background: #cecece;
+}
+a{
+    cursor: pointer;
+    outline: none;
+}
+.gif {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 180px);
+}
+img.pokeballGif {
+    width: 350px;
+}
