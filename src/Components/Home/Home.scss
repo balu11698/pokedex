@@ -5,11 +5,14 @@
     flex-wrap: wrap;
     .card{
         border: 3px solid #000;
-        max-width: 350px;
-        min-width: 350px;
+        max-width: 315px;
+        min-width: 315px;
         min-height: 550px;
         margin: 10px;
         border-radius: 10px;
+    }
+    .card:hover{
+        box-shadow: 0 0 10px #6f73d6;
     }
     .pokeImage {
         display: flex;
@@ -27,14 +30,24 @@
         justify-content: center;
         height: 75px;
         text-transform: capitalize;
+        text-decoration: underline;
     }
     .imagePoke {
         max-width: 200px;
         min-height: 200px;
         max-height: 200px;
     }
-    .pokeAbilities,.pokeTypes {
-        margin-left: 10px;
+    .pokeId {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+    }
+    .pokeAbilities,.pokeTypes,.pokeHeight,.pokeWeight {
+        margin: 10px;
+    }
+    .pokeAbilities,.pokeTypes{
+        text-transform: capitalize;
     }
 }
 .contentWrapper {
@@ -56,6 +69,8 @@
 ul {
     display: flex;
     justify-content: center;
+    padding-inline-start: unset;
+    flex-wrap: wrap;
 }
   
 li {
@@ -65,7 +80,6 @@ li {
     padding: 8px;
     justify-content: center;
     align-items: center;
-    
     margin: 10px;
     border-radius: 5px;
 }
@@ -84,4 +98,9 @@ a{
 }
 img.pokeballGif {
     width: 350px;
+}
+@media (max-width:600px){
+    li{
+        padding: 1px;
+    }
 }

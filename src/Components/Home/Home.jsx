@@ -2,7 +2,6 @@ import react, { useEffect, useState } from 'react'
 import { getPokemonList, getPokemonData } from '../../api/api'
 import './Home.scss'
 import ReactPaginate from 'react-paginate';
-import Loader from "react-loader-spinner";
 import pokeball from '../../assets/pokeball.gif'
 
 function Home() {
@@ -43,8 +42,8 @@ function Home() {
 			const pokemonData = await fetchPokemonData(pokemonURLList);
 			setPokemonList(pokemonData);
 			setFilteredPokemonList(pokemonData);
-			setTimeout(()=>setLoading(false),1000)
-			//setLoading(false);
+			//setTimeout(() => setLoading(false), 1000)
+			setLoading(false);
 			console.log(pokemonData, 'pokemonData');
 		}
 		x();
@@ -75,12 +74,16 @@ function Home() {
 		setPokemonList(filteredPokemonList.filter(pokemon => pokemon.types.some(item => item.type.name.includes(type))));
 	}
 
+	const pokeId = (id) => ("0000"+id).substr(-4,4)
+
+	const pokeWeight = (weight) => String(weight).substr(0,String(weight).length-1) +'.'+(String(weight).substr(-1,1)) + ' kg'
+	
 	function handlePageClick({ selected: selectedPage }) {
 		setCurrentPage(selectedPage);
 
 	}
 
-	const pokeImage = (a,b) => a ? a : b
+	const pokeImage = (a, b) => a ? a : b
 
 	const fetchPokemonData = async pokemonList => await Promise.all(pokemonList.results.map(async item => await getPokemonData(item.url)));
 
@@ -88,15 +91,18 @@ function Home() {
 		<>
 			<div className="contentWrapper">
 				{loading === false ? (<><div className="pokeFilters">
-					<div className="pokeNameSearch">Pokemon Search :<input className="pokeNameSearchBar" type="text" onChange={searchByName} value={searchText} autoFocus /></div>
-					<div className="pokeTypeSearch">Type :<select onChange={searchByType}>{uniquePokeType.map(i => <option >{i}</option>)}</select></div>
+					<div className="pokeNameSearch">Pokemon Search :<input className="pokeNameSearchBar" type="text" onChange={searchByName} value={searchText} /></div>
+					<div className="pokeTypeSearch">Type :<select onChange={searchByType}>{uniquePokeType.map(i => <option key={i}>{i}</option>)}</select></div>
 				</div>
 					<div className="cardWrapper">{pokemonList.map(list =>
 						<div className="card" style={{ backgroundColor: colors[list.types[0].type.name] }} key={list.name}>
 							<div className="pokeName">{list.name}</div>
-							<div className="pokeImage"><img className="imagePoke" src={pokeImage(list.sprites.other.dream_world.front_default,list.sprites.other["official-artwork"].front_default)}></img></div>
-							<div className="pokeAbilities">Abilities{list.abilities.map(abilities => <span>{abilities.ability.name}</span>)}</div>
-							<div className="pokeTypes">Type{list.types.map(types => <span>{types.type.name}</span>)}</div>
+							<div className="pokeImage"><img className="imagePoke" src={pokeImage(list.sprites.other.dream_world.front_default, list.sprites.other["official-artwork"].front_default)}></img></div>
+							<div className="pokeId">#{pokeId(list.id)}</div>
+							<div className="pokeAbilities">Abilities : {list.abilities.map((abilities, index) => <span key={abilities.ability.name}>{(index ? ', ' : '') + abilities.ability.name}</span>)}</div>
+							<div className="pokeTypes">Type : {list.types.map((types, index) => <span key={types.type.name}>{(index ? ', ' : '') + types.type.name}</span>)}</div>
+							<div className="pokeWeight">Weight : {pokeWeight(list.weight)}</div>
+							<div className="pokeHeight">Height : {list.height*10} cm</div>
 						</div>
 					)
 					}</div></>) : (<div className="gif"><img className="pokeballGif" src={pokeball} /></div>)}
